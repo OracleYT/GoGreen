@@ -1,8 +1,7 @@
 // ignore: file_names
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../app_theme.dart';
@@ -27,8 +26,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // UserController userController = Get.find<UserController>();
   int _counter = 0;
-  final user = FirebaseAuth.instance.currentUser;
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -50,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
+    return
+        // Obx((){
+        Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -91,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      // );}
     );
   }
 
@@ -113,16 +115,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 16,
                 ),
-                Text(
-                  'Hello ${user.email} 👋',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    letterSpacing: 0.2,
-                    color: Color(0xFF3A5160),
-                  ),
-                ),
+                Obx(() {
+                  return Text(
+                    'Hello 👋',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      letterSpacing: 0.2,
+                      color: Color(0xFF3A5160),
+                    ),
+                  );
+                }),
                 const SizedBox(
                   height: 8,
                 ),

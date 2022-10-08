@@ -4,14 +4,33 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import '../../app_theme.dart';
 import '../constant.dart';
 import '../controllers/navigationController.dart';
+import '../providers/user_provider.dart';
 import 'homePage.dart';
 
-class NavigationWrapper extends StatelessWidget {
+class NavigationWrapper extends StatefulWidget {
+  @override
+  State<NavigationWrapper> createState() => _NavigationWrapperState();
+}
+
+class _NavigationWrapperState extends State<NavigationWrapper> {
   final navigationController = Get.put(NavigationController(), permanent: true);
+  @override
+  void initState() {
+    super.initState();
+    addData();
+  }
+
+  addData() async {
+    UserProvider _userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    await _userProvider.refreshUser();
+  }
+
   PageController _pageController;
 
   @override

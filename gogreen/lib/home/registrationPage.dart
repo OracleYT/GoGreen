@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 // import 'package:walk_with_you/style/theme.dart' as Theme;
 import '../constant.dart';
 import '../main.dart';
+import '../onboarding/authmethods.dart';
 import '../widget/textField.dart';
 
 class RegstrationPage extends StatefulWidget {
@@ -24,6 +26,9 @@ class RegstrationPage extends StatefulWidget {
 class _RegstrationPageState extends State<RegstrationPage> {
   final signUpFormKey = GlobalKey<FormState>();
   final signInFormKey = GlobalKey<FormState>();
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -322,8 +327,8 @@ class _RegstrationPageState extends State<RegstrationPage> {
               child: CircularProgressIndicator(),
             ));
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text.trim(), password: password.text.trim());
+      String res = await AuthMethods()
+          .loginUser(email: email.text.trim(), password: password.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
     }
@@ -334,6 +339,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
   Future signUp() async {
     final isValid = signUpFormKey.currentState.validate();
     if (!isValid) return;
+
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -341,18 +347,19 @@ class _RegstrationPageState extends State<RegstrationPage> {
               child: CircularProgressIndicator(),
             ));
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text.trim(), password: password.text.trim());
+      String res = await AuthMethods().signUpUser(
+        email: email.text.trim(),
+        password: password.text.trim(),
+        username: name.text.trim(),
+        // bio: bio.text,
+      );
     } on FirebaseAuthException catch (e) {
       print(e);
     }
-
     navigatorKey.currentState.popUntil((route) => route.isFirst);
   }
 
   Widget _buildSignIn(BuildContext context) {
-    // final viewModel = ref.watch(LogInPageViewModel.provider);
-
     return Form(
         key: signInFormKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/userController.dart';
 import '../home/navigationWrapper.dart';
 import '../home/registrationPage.dart';
 
@@ -9,6 +10,7 @@ import '../home/registrationPage.dart';
 // import '../registrationPage.dart';
 
 class AuthWrapper extends StatelessWidget {
+  final userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) => Scaffold(
         body: StreamBuilder<User>(
