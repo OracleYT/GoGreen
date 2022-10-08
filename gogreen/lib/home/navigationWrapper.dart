@@ -199,7 +199,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                       },
                       children: <Widget>[
                         FeedScreen(),
-                        AddPostScreen(),
+                        MyHomePage(),
                         ProfileScreen(
                           uid: FirebaseAuth.instance.currentUser.uid,
                         )

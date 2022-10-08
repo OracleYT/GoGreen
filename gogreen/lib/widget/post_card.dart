@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gogreen/app_theme.dart';
+import 'package:gogreen/home/comments_screen.dart';
 import 'package:gogreen/models/user.dart' as model;
 import 'package:gogreen/providers/user_provider.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +32,8 @@ class _PostCardState extends State<PostCard> {
     fetchCommentLen();
   }
 
-  void postpayement(String uid, String name, String profilePic) async {
+  void postpayement(
+      String uid, String name, String profilePic, int amount) async {
     try {
       String res = await FireStoreMethods().postTransactions(
         widget.snap['postId'],
@@ -239,6 +242,7 @@ class _PostCardState extends State<PostCard> {
                   user.uid,
                   user.username,
                   user.photoUrl,
+                  10,
                 ),
               ),
               IconButton(
@@ -303,6 +307,9 @@ class _PostCardState extends State<PostCard> {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 4),
                   ),
+                  onTap: (() => Get.to(CommentsScreen(
+                        postId: widget.snap['postId'].toString(),
+                      ))),
                   // onTap: () => Navigator.of(context).push(
                   //   MaterialPageRoute(
                   //     builder: (context) => CommentsScreen(
