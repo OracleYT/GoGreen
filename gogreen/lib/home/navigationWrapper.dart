@@ -3,6 +3,7 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gogreen/home/add_post_screen.dart';
 import 'package:gogreen/home/feed_screen.dart';
+import 'package:gogreen/home/profile_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -196,10 +197,12 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                       onPageChanged: (index) {
                         navigationController.onPageChange(index);
                       },
-                      children: const <Widget>[
+                      children: <Widget>[
                         FeedScreen(),
                         AddPostScreen(),
-                        MyHomePage()
+                        ProfileScreen(
+                          uid: FirebaseAuth.instance.currentUser.uid,
+                        )
                       ]),
                 ),
                 bottomNavigationBar: Padding(
