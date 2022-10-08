@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gogreen/main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import 'package:get/get.dart';
 import '../../app_theme.dart';
 import '../constant.dart';
 import '../controllers/navigationController.dart';
+import 'homePage.dart';
 
 class NavigationWrapper extends StatelessWidget {
   final navigationController = Get.put(NavigationController(), permanent: true);
