@@ -115,18 +115,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 16,
                 ),
-                Obx(() {
-                  return Text(
-                    'Hello 👋',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      letterSpacing: 0.2,
-                      color: Color(0xFF3A5160),
-                    ),
-                  );
-                }),
+                Text(
+                  'Hello 👋',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    letterSpacing: 0.2,
+                    color: Color(0xFF3A5160),
+                  ),
+                ),
                 const SizedBox(
                   height: 8,
                 ),

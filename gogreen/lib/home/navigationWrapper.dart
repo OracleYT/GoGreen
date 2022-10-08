@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gogreen/home/add_post_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -196,7 +197,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                       },
                       children: const <Widget>[
                         MyHomePage(),
-                        MyHomePage(),
+                        AddPostScreen(),
                         MyHomePage()
                       ]),
                 ),
@@ -225,7 +226,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                         text: 'Explore',
                       ),
                       GButton(
-                        icon: FontAwesomeIcons.bookBookmark,
+                        icon: FontAwesomeIcons.userTie,
                         text: 'Profile',
                       ),
                     ],

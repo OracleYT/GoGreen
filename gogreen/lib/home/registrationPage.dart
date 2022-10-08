@@ -44,6 +44,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
   Color right = Colors.white;
 
   bool page = false;
+  bool isgreen = false;
 
   @override
   void initState() {
@@ -129,7 +130,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
                       //MediaQuery.of(context).size.height >= 775.0
                       //     ? MediaQuery.of(context).size.height
                       // :
-                      330.0,
+                      400.0,
                   child: PageView(
                     controller: pageController,
                     physics: const BouncingScrollPhysics(),
@@ -158,126 +159,126 @@ class _RegstrationPageState extends State<RegstrationPage> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            Color.fromRGBO(231, 236, 243, 1),
-                            Color.fromARGB(255, 212, 218, 225),
-                          ],
-                          begin: FractionalOffset(0.0, 0.0),
-                          end: FractionalOffset(1.0, 1.0),
-                          stops: [0.0, 1.0],
-                          tileMode: TileMode.clamp),
-                    ),
-                    width: 100.0,
-                    height: 1.0,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                    child: Text(
-                      "Or",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 212, 218,
-                              225), //Color.fromRGBO(231, 236, 243, 1),
-                          fontSize: 16.0,
-                          fontFamily: "WorkSansMedium"),
-                    ),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 212, 218, 225),
-                            Color.fromRGBO(231, 236, 243, 1),
-                          ],
-                          begin: FractionalOffset(0.0, 0.0),
-                          end: FractionalOffset(1.0, 1.0),
-                          stops: [0.0, 1.0],
-                          tileMode: TileMode.clamp),
-                    ),
-                    width: 100.0,
-                    height: 1.0,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // Conditional.single(
-                  // context: context,
-                  // conditionBuilder: (context) =>
-                  // loginPageModel.supportsAppleSignIn,
-                  // widgetBuilder: (context) => Column(
-                  // children: [
-                  Platform.isIOS
-                      ? Padding(
-                          padding: const EdgeInsets.only(
-                              top: 22.0, right: 0.0, bottom: 12),
-                          child: GestureDetector(
-                            onTap: () async {
-                              // success = await loginPageModel.appleSignIn();
-                              // if (success == true) widget.next();
-                            }, // => showInSnackBar("Facebook button pressed"),
-                            child: Container(
-                              padding: const EdgeInsets.all(15.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    width: 2,
-                                    color:
-                                        const Color.fromRGBO(231, 236, 243, 1),
-                                  )),
-                              child: const Icon(
-                                FontAwesomeIcons.apple,
-                                color: Color.fromARGB(255, 46, 50, 54),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(),
-                  //     ],
-                  //   ),
-                  //   fallbackBuilder: (context) => Container(),
-                  // ),
-                  Platform.isAndroid
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 10.0, left: 0),
-                          child: GestureDetector(
-                            onTap: () async {
-                              // success = await loginPageModel.googleSignIn();
-                              // if (success == true) widget.next();
-                            }, // => showInSnackBar("Google button pressed"),
-                            child: Container(
-                              padding: const EdgeInsets.all(15.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    width: 2,
-                                    color:
-                                        const Color.fromRGBO(231, 236, 243, 1),
-                                  )),
-                              child: const Icon(
-                                FontAwesomeIcons.google,
-                                color: Color(0xFF0084ff),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 10.0, bottom: 8),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: <Widget>[
+            //       Container(
+            //         decoration: const BoxDecoration(
+            //           gradient: LinearGradient(
+            //               colors: [
+            //                 Color.fromRGBO(231, 236, 243, 1),
+            //                 Color.fromARGB(255, 212, 218, 225),
+            //               ],
+            //               begin: FractionalOffset(0.0, 0.0),
+            //               end: FractionalOffset(1.0, 1.0),
+            //               stops: [0.0, 1.0],
+            //               tileMode: TileMode.clamp),
+            //         ),
+            //         width: 100.0,
+            //         height: 1.0,
+            //       ),
+            //       const Padding(
+            //         padding: EdgeInsets.only(left: 15.0, right: 15.0),
+            //         child: Text(
+            //           "Or",
+            //           style: TextStyle(
+            //               color: Color.fromARGB(255, 212, 218,
+            //                   225), //Color.fromRGBO(231, 236, 243, 1),
+            //               fontSize: 16.0,
+            //               fontFamily: "WorkSansMedium"),
+            //         ),
+            //       ),
+            //       Container(
+            //         decoration: const BoxDecoration(
+            //           gradient: LinearGradient(
+            //               colors: [
+            //                 Color.fromARGB(255, 212, 218, 225),
+            //                 Color.fromRGBO(231, 236, 243, 1),
+            //               ],
+            //               begin: FractionalOffset(0.0, 0.0),
+            //               end: FractionalOffset(1.0, 1.0),
+            //               stops: [0.0, 1.0],
+            //               tileMode: TileMode.clamp),
+            //         ),
+            //         width: 100.0,
+            //         height: 1.0,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(bottom: 12.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: <Widget>[
+            //       // Conditional.single(
+            //       // context: context,
+            //       // conditionBuilder: (context) =>
+            //       // loginPageModel.supportsAppleSignIn,
+            //       // widgetBuilder: (context) => Column(
+            //       // children: [
+            //       Platform.isIOS
+            //           ? Padding(
+            //               padding: const EdgeInsets.only(
+            //                   top: 22.0, right: 0.0, bottom: 12),
+            //               child: GestureDetector(
+            //                 onTap: () async {
+            //                   // success = await loginPageModel.appleSignIn();
+            //                   // if (success == true) widget.next();
+            //                 }, // => showInSnackBar("Facebook button pressed"),
+            //                 child: Container(
+            //                   padding: const EdgeInsets.all(15.0),
+            //                   decoration: BoxDecoration(
+            //                       shape: BoxShape.circle,
+            //                       color: Colors.white,
+            //                       border: Border.all(
+            //                         width: 2,
+            //                         color:
+            //                             const Color.fromRGBO(231, 236, 243, 1),
+            //                       )),
+            //                   child: const Icon(
+            //                     FontAwesomeIcons.apple,
+            //                     color: Color.fromARGB(255, 46, 50, 54),
+            //                   ),
+            //                 ),
+            //               ),
+            //             )
+            //           : Container(),
+            //       //     ],
+            //       //   ),
+            //       //   fallbackBuilder: (context) => Container(),
+            //       // ),
+            //       Platform.isAndroid
+            //           ? Padding(
+            //               padding: const EdgeInsets.only(top: 10.0, left: 0),
+            //               child: GestureDetector(
+            //                 onTap: () async {
+            //                   // success = await loginPageModel.googleSignIn();
+            //                   // if (success == true) widget.next();
+            //                 }, // => showInSnackBar("Google button pressed"),
+            //                 child: Container(
+            //                   padding: const EdgeInsets.all(15.0),
+            //                   decoration: BoxDecoration(
+            //                       shape: BoxShape.circle,
+            //                       color: Colors.white,
+            //                       border: Border.all(
+            //                         width: 2,
+            //                         color:
+            //                             const Color.fromRGBO(231, 236, 243, 1),
+            //                       )),
+            //                   child: const Icon(
+            //                     FontAwesomeIcons.google,
+            //                     color: Color(0xFF0084ff),
+            //                   ),
+            //                 ),
+            //               ),
+            //             )
+            //           : Container(),
+            //     ],
+            //   ),
+            // ),
             const SizedBox(
               height: 16,
             ),
@@ -351,6 +352,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
         email: email.text.trim(),
         password: password.text.trim(),
         username: name.text.trim(),
+        isgreen: isgreen,
         // bio: bio.text,
       );
     } on FirebaseAuthException catch (e) {
@@ -504,6 +506,34 @@ class _RegstrationPageState extends State<RegstrationPage> {
                         return null;
                       },
                       textController: password,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        //SizedBox
+                        SizedBox(width: 10), //SizedBox
+                        /** Checkbox Widget **/
+                        Checkbox(
+                          activeColor: Color.fromRGBO(79, 171, 93, 1),
+                          value: this.isgreen,
+                          onChanged: (bool value) {
+                            setState(() {
+                              this.isgreen = value;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Are u green',
+                          style: TextStyle(
+                              // fontWeight: FontWeight.w900,
+                              color: Color.fromARGB(255, 166, 172,
+                                  179) //Color.fromARGB(255, 18, 18, 18),
+                              ),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ), //Text
+                      ], //<Widget>[]
                     ),
                   ],
                 ),

@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +25,7 @@ class AuthMethods {
     String password,
     String username,
     String bio = "",
+    bool isgreen = false,
     // Uint8List file,
   }) async {
     String res = "Some error Occurred";
@@ -43,6 +45,7 @@ class AuthMethods {
           bio: bio,
           followers: [],
           following: [],
+          isgreen: isgreen,
         );
 
         await _firestore
