@@ -46,6 +46,7 @@ class AuthMethods {
           followers: [],
           following: [],
           isgreen: isgreen,
+          coins: 0,
         );
 
         await _firestore

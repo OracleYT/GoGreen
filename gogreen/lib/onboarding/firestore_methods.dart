@@ -60,25 +60,52 @@ class FireStoreMethods {
     return res;
   }
 
-  // Post comment
-  Future<String> postComment(String postId, String text, String uid,
+  // Post transactions
+  Future<String> postTransactions(String postId, int coins, String uid,
       String name, String profilePic) async {
     String res = "Some error occurred";
+
     try {
-      if (text.isNotEmpty) {
-        // if the likes list contains the user uid, we need to remove it
-        String commentId = const Uuid().v1();
+      if (coins != 0) {
+        DocumentSnapshot currentusersnap =
+            await _firestore.collection('users').doc(uid).get();
+        print((currentusersnap.data() as Map<String, dynamic>)['coins']
+            .toString());
+        await _firestore.collection('users').doc(uid).update({
+          'coins': ((currentusersnap.data() as Map<String, dynamic>)['coins'] -
+              coins)
+        });
+
+        DocumentSnapshot postusersnap =
+            await _firestore.collection('posts').doc(postId).get();
+        print((postusersnap.data() as Map<String, dynamic>)['uid']);
+        DocumentSnapshot postuseridsnap = await _firestore
+            .collection('users')
+            .doc((postusersnap.data() as Map<String, dynamic>)['uid'])
+            .get();
+        print((postuseridsnap.data() as Map<String, dynamic>)['coins']
+            .toString());
+        await _firestore
+            .collection('users')
+            .doc((postusersnap.data() as Map<String, dynamic>)['uid'])
+            .update({
+          'coins':
+              ((postuseridsnap.data() as Map<String, dynamic>)['coins'] + coins)
+        });
+
+        String payementId = const Uuid().v1();
+
         _firestore
             .collection('posts')
             .doc(postId)
-            .collection('comments')
-            .doc(commentId)
+            .collection('transactions')
+            .doc(payementId)
             .set({
-          'profilePic': profilePic,
+          // 'profilePic': profilePic,
           'name': name,
           'uid': uid,
-          'text': text,
-          'commentId': commentId,
+          'coins': coins,
+          'payementId': payementId,
           'datePublished': DateTime.now(),
         });
         res = 'success';

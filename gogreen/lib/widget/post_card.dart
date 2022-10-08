@@ -30,12 +30,30 @@ class _PostCardState extends State<PostCard> {
     fetchCommentLen();
   }
 
+  void postpayement(String uid, String name, String profilePic) async {
+    try {
+      String res = await FireStoreMethods().postTransactions(
+        widget.snap['postId'],
+        10,
+        uid,
+        name,
+        profilePic,
+      );
+
+      if (res != 'success') {
+        SnackBar(content: Text(res));
+      }
+    } catch (err) {
+      SnackBar(content: Text(err.toString()));
+    }
+  }
+
   fetchCommentLen() async {
     try {
       QuerySnapshot snap = await FirebaseFirestore.instance
           .collection('posts')
           .doc(widget.snap['postId'])
-          .collection('comments')
+          .collection('transactions')
           .get();
       commentLen = snap.docs.length;
     } catch (err) {
@@ -215,15 +233,13 @@ class _PostCardState extends State<PostCard> {
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.comment_outlined,
+                  Icons.money,
                 ),
-                // onPressed: () => Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => CommentsScreen(
-                //       postId: widget.snap['postId'].toString(),
-                //     ),
-                //   ),
-                // ),
+                onPressed: () => postpayement(
+                  user.uid,
+                  user.username,
+                  user.photoUrl,
+                ),
               ),
               IconButton(
                   icon: const Icon(

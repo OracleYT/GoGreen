@@ -9,6 +9,7 @@ class User {
   final List followers;
   final List following;
   final bool isgreen;
+  final int coins;
 
   const User({
     this.username,
@@ -19,19 +20,22 @@ class User {
     this.followers,
     this.following,
     this.isgreen,
+    this.coins,
   });
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return User(
-        username: snapshot["username"],
-        uid: snapshot["uid"],
-        email: snapshot["email"],
-        photoUrl: snapshot["photoUrl"],
-        bio: snapshot["bio"],
-        followers: snapshot["followers"],
-        following: snapshot["following"],
-        isgreen: snapshot["isgreen"]);
+      username: snapshot["username"],
+      uid: snapshot["uid"],
+      email: snapshot["email"],
+      photoUrl: snapshot["photoUrl"],
+      bio: snapshot["bio"],
+      followers: snapshot["followers"],
+      following: snapshot["following"],
+      isgreen: snapshot["isgreen"],
+      coins: snapshot["coin"],
+    );
   }
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +47,6 @@ class User {
         "followers": followers,
         "following": following,
         "isgreen": isgreen,
+        "coins": coins,
       };
 }

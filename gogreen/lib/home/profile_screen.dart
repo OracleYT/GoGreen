@@ -22,6 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int postLen = 0;
   int followers = 0;
   int following = 0;
+  int coins = 0;
   bool isFollowing = false;
   bool isLoading = false;
 
@@ -51,6 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       userData = userSnap.data();
       followers = userSnap.data()['followers'].length;
       following = userSnap.data()['following'].length;
+      coins = userSnap.data()['coins'];
       isFollowing = userSnap
           .data()['followers']
           .contains(FirebaseAuth.instance.currentUser.uid);
@@ -106,6 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     buildStatColumn(following, "following"),
                                   ],
                                 ),
+                                buildwalletCount(coins, 'coins'),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -237,6 +240,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Column buildStatColumn(int num, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          num.toString(),
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 4),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildwalletCount(int num, String label) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
