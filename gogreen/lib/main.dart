@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:gogreen/app_theme.dart';
+import 'package:gogreen/onboarding/authWrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         textTheme: AppTheme.textTheme,
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(), // const MyHomePage(title: 'Simply Grow...'),
+      home: AuthWrapper(), // const MyHomePage(title: 'Simply Grow...'),
     );
   }
 }
