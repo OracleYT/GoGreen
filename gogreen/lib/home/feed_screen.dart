@@ -20,7 +20,7 @@ class _FeedScreenState extends State<FeedScreen> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(240, 244, 247, 1),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
         builder: (context,
@@ -37,8 +37,12 @@ class _FeedScreenState extends State<FeedScreen> {
                 horizontal: 0,
                 vertical: 0,
               ),
-              child: PostCard(
-                snap: snapshot.data.docs[index].data(),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 22),
+                child: PostCard(
+                  snap: snapshot.data.docs[index].data(),
+                ),
               ),
             ),
           );

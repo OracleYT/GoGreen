@@ -190,7 +190,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
               ),
 
               child: Scaffold(
-                backgroundColor: Colors.white,
+                backgroundColor: Color.fromRGBO(240, 244, 247, 1),
                 body: SizedBox.expand(
                   child: PageView(
                       controller: _pageController,
@@ -199,46 +199,57 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                       },
                       children: <Widget>[
                         FeedScreen(),
-                        MyHomePage(),
+                        AddPostScreen(),
+                        // MyHomePage(
+                        //   uid: FirebaseAuth.instance.currentUser.uid,
+                        // ),
                         ProfileScreen(
                           uid: FirebaseAuth.instance.currentUser.uid,
                         )
                       ]),
                 ),
-                bottomNavigationBar: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
-                  child: GNav(
-                    gap: 16,
-                    // backgroundColor: Colors.white,
-                    activeColor: Colors.white.withOpacity(0.95),
-                    iconSize: 21,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 18),
-                    duration: const Duration(milliseconds: 400),
-                    tabBackgroundColor: Utils.themeColor, //Colors.grey[100]!,
-                    color: HexColorNew('#9DA0AA'),
-                    // curve: Curves.slowMiddle,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    tabs: const [
-                      GButton(
-                        icon: FontAwesomeIcons.home,
-                        text: 'Home',
-                      ),
-                      GButton(
-                        icon: FontAwesomeIcons.earthAsia,
-                        text: 'Explore',
-                      ),
-                      GButton(
-                        icon: FontAwesomeIcons.userTie,
-                        text: 'Profile',
-                      ),
-                    ],
-                    selectedIndex: navigationController.currentIndex.value,
-                    onTabChange: (index) {
-                      navigationController.onPageChange(index);
-                      _pageController.jumpToPage(index);
-                    },
+                bottomNavigationBar: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25)),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+                    child: GNav(
+                      gap: 16,
+                      // backgroundColor: Colors.white,
+                      activeColor: Colors.white.withOpacity(0.95),
+                      iconSize: 21,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 18),
+                      duration: const Duration(milliseconds: 400),
+                      tabBackgroundColor: Utils.themeColor, //Colors.grey[100]!,
+                      color: HexColorNew('#9DA0AA'),
+                      // curve: Curves.slowMiddle,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      tabs: const [
+                        GButton(
+                          icon: FontAwesomeIcons.home,
+                          text: 'Home',
+                        ),
+                        GButton(
+                          icon: FontAwesomeIcons.earthAsia,
+                          text: 'Explore',
+                        ),
+                        GButton(
+                          icon: FontAwesomeIcons.userTie,
+                          text: 'Profile',
+                        ),
+                      ],
+                      selectedIndex: navigationController.currentIndex.value,
+                      onTabChange: (index) {
+                        navigationController.onPageChange(index);
+                        _pageController.jumpToPage(index);
+                      },
+                    ),
                   ),
                 ),
               ),

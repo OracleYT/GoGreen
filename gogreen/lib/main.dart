@@ -39,9 +39,11 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: GetMaterialApp(
+        color: Color.fromRGBO(240, 244, 247, 1),
         navigatorKey: navigatorKey,
         title: 'Go Green',
         theme: ThemeData(
+          useMaterial3: true,
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the

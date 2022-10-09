@@ -40,7 +40,7 @@ dependencies:
   firebase_core: ^1.24.0                  #Firebase Core
   cloud_firestore: ^3.5.1                 #Firestore database
   get: 4.6.5                              #State Management
-  firebase_auth: ^3.11.2
+  firebase_auth: 3.9.0
   google_nav_bar: ^5.0.6
   font_awesome_flutter: ^10.2.1
   flutter_advanced_drawer: ^1.3.2

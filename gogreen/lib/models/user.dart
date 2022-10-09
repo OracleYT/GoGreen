@@ -34,7 +34,7 @@ class User {
       followers: snapshot["followers"],
       following: snapshot["following"],
       isgreen: snapshot["isgreen"],
-      coins: snapshot["coin"],
+      coins: snapshot["coins"],
     );
   }
 

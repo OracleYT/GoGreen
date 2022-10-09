@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,8 +9,8 @@ import '../app_theme.dart';
 import '../controllers/navigationController.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
-
+  const MyHomePage({Key key, this.uid}) : super(key: key);
+  final String uid;
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -19,23 +20,40 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // UserController userController = Get.find<UserController>();
-  int _counter = 0;
-  void _incrementCounter() {
+  var userData = {};
+
+  int coins = 0;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+
+      userData = userSnap.data();
+      coins = userSnap.data()['coins'];
+      setState(() {});
+    } catch (e) {
+      SnackBar(content: Text(e.toString()));
+    }
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -43,12 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final navigationController =
         Get.put(NavigationController(), permanent: true);
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return
         // Obx((){
         Scaffold(
@@ -116,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 16,
                 ),
                 Text(
-                  'Hello 👋',
+                  'Hello ${userData['username']}👋',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,

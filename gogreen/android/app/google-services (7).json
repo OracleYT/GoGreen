@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "988552778180",
-    "project_id": "go-green-2-4a09c",
-    "storage_bucket": "go-green-2-4a09c.appspot.com"
+    "project_number": "99008593426",
+    "project_id": "greengo-7d59e",
+    "storage_bucket": "greengo-7d59e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:988552778180:android:d3925c018920ff5784d491",
+        "mobilesdk_app_id": "1:99008593426:android:dbcf496bcb5aa581a4a2cb",
         "android_client_info": {
           "package_name": "com.example.gogreen"
         }
       },
       "oauth_client": [
         {
-          "client_id": "988552778180-dbrc9ocrinuvghrtnto5qr4ls4pugg7c.apps.googleusercontent.com",
+          "client_id": "99008593426-vogcb07jb54deml3ipdna6a1j8ngvmq0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDSxdGyTOl2-HO9vIubTGcRylEo2J9edrU"
+          "current_key": "AIzaSyDCxyl8SjUDvKKhYKhz6x5sRm3qTy4ukxg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "988552778180-dbrc9ocrinuvghrtnto5qr4ls4pugg7c.apps.googleusercontent.com",
+              "client_id": "99008593426-vogcb07jb54deml3ipdna6a1j8ngvmq0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
