@@ -50,7 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
       coins = userSnap.data()['coins'];
       setState(() {});
     } catch (e) {
-      SnackBar(content: Text(e.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
     }
     setState(() {
       isLoading = false;

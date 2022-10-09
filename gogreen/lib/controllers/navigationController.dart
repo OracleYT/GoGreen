@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 class NavigationController extends GetxController {
   var currentIndex = 0.obs;
   AdvancedDrawerController advancedDrawerController;
+  var coins = 0.obs;
 
   @override
   void onInit() {

@@ -60,6 +60,27 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> addmoney(int coins, String uid) async {
+    String res = "Some error occurred";
+    try {
+      if (coins != 0) {
+        DocumentSnapshot currentusersnap =
+            await _firestore.collection('users').doc(uid).get();
+        await _firestore.collection('users').doc(uid).update({
+          'coins': ((currentusersnap.data() as Map<String, dynamic>)['coins'] +
+              coins)
+        });
+
+        res = 'success';
+      } else {
+        res = "Please enter text";
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   // Post transactions
   Future<String> postTransactions(String postId, int coins, String uid,
       String name, String profilePic) async {

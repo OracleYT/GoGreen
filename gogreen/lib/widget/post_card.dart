@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:gogreen/app_theme.dart';
@@ -9,6 +11,7 @@ import 'package:gogreen/home/comments_screen.dart';
 import 'package:gogreen/models/user.dart' as model;
 import 'package:gogreen/providers/user_provider.dart';
 import 'package:gogreen/widget/glassbox.dart';
+import 'package:gogreen/widget/textField.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +32,8 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-  int commentLen = 0;
+  TextEditingController amounts = TextEditingController();
+  int donationlen = 0;
   bool isLikeAnimating = false;
 
   @override
@@ -50,10 +54,14 @@ class _PostCardState extends State<PostCard> {
       );
 
       if (res != 'success') {
-        SnackBar(content: Text(res));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(res),
+        ));
       }
     } catch (err) {
-      SnackBar(content: Text(err.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(err.toString()),
+      ));
     }
   }
 
@@ -64,9 +72,11 @@ class _PostCardState extends State<PostCard> {
           .doc(widget.snap['postId'])
           .collection('transactions')
           .get();
-      commentLen = snap.docs.length;
+      donationlen = snap.docs.length;
     } catch (err) {
-      SnackBar(content: Text(err.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(err.toString()),
+      ));
     }
     setState(() {});
   }
@@ -75,7 +85,9 @@ class _PostCardState extends State<PostCard> {
     try {
       await FireStoreMethods().deletePost(postId);
     } catch (err) {
-      SnackBar(content: Text(err.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(err.toString()),
+      ));
     }
   }
 
@@ -86,6 +98,10 @@ class _PostCardState extends State<PostCard> {
 
     return GestureDetector(
       onDoubleTap: () {
+        // Fluttertoast.showToast(
+        //     msg: "You have Successfully Gifted  :)",
+        //     backgroundColor: Colors.grey,
+        //     gravity: ToastGravity.CENTER);
         FireStoreMethods().likePost(
           widget.snap['postId'].toString(),
           user.uid,
@@ -100,6 +116,10 @@ class _PostCardState extends State<PostCard> {
         children: [
           Container(
             decoration: BoxDecoration(
+              border: Border.all(
+                color: Color.fromARGB(255, 221, 224, 227),
+                width: 2,
+              ),
               borderRadius: BorderRadius.circular(30),
               // color: Colors.black87,
               image: DecorationImage(
@@ -110,6 +130,7 @@ class _PostCardState extends State<PostCard> {
             ),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   // decoration: BoxDecoration(
@@ -171,7 +192,7 @@ class _PostCardState extends State<PostCard> {
                       ),
                       widget.snap['uid'].toString() == user.uid
                           ? GlassBox(
-                              color: Colors.white,
+                              color: Colors.white.withOpacity(0.9),
                               isback: false,
                               child: IconButton(
                                 onPressed: () {
@@ -188,62 +209,295 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 SizedBox(
-                  height: 120,
+                  height: 150,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                    ),
+                    child: Text(
+                      ' ${widget.snap['description']}',
+                      style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                    ),
+                  ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    GlassBox(
-                      color: Colors.white,
-                      isback: false,
-                      child: LikeAnimation(
-                        isAnimating: widget.snap['likes'].contains(user.uid),
-                        smallLike: true,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          child: IconButton(
-                            icon: widget.snap['likes'].contains(user.uid)
-                                ? const Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  )
-                                : const Icon(
-                                    Icons.favorite_border,
-                                  ),
-                            onPressed: () => FireStoreMethods().likePost(
-                              widget.snap['postId'].toString(),
-                              user.uid,
-                              widget.snap['likes'],
+                  children: [
+                    Container(
+                      width: 80,
+                      child: GlassBox(
+                        color: Colors.white.withOpacity(0.9),
+                        isback: false,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            LikeAnimation(
+                              isAnimating:
+                                  widget.snap['likes'].contains(user.uid),
+                              smallLike: true,
+                              child: IconButton(
+                                icon: widget.snap['likes'].contains(user.uid)
+                                    ? const Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                      )
+                                    : const Icon(
+                                        Icons.favorite_border,
+                                      ),
+                                onPressed: () => FireStoreMethods().likePost(
+                                  widget.snap['postId'].toString(),
+                                  user.uid,
+                                  widget.snap['likes'],
+                                ),
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 12.0),
+                              child: DefaultTextStyle(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2
+                                      .copyWith(fontWeight: FontWeight.w800),
+                                  child: Text(
+                                    '${widget.snap['likes'].length}',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  )),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    GlassBox(
-                      color: Colors.white,
-                      isback: false,
-                      child: IconButton(
-                          icon: const Icon(FontAwesomeIcons.paperPlane,
-                              size: 20,
-                              color: Color.fromARGB(255, 85, 92, 100)),
-                          onPressed: () {}),
+                    InkWell(
+                      child: Container(
+                        child: Text(
+                          donationlen == 0
+                              ? ""
+                              : '   They have recieved $donationlen gifts :)',
+                          style: TextStyle(
+                            fontSize: 16,
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(0.2, 0.2),
+                                blurRadius: 8.0,
+                                color: Color.fromARGB(255, 44, 45, 47),
+                              ),
+                              Shadow(
+                                offset: Offset(0.2, 0.2),
+                                blurRadius: 10.0,
+                                color: Color.fromARGB(255, 94, 96, 100),
+                              ),
+                            ],
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                      ),
+                      onTap: (() => Get.to(CommentsScreen(
+                            postId: widget.snap['postId'].toString(),
+                          ))),
+                      // onTap: () => Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => CommentsScreen(
+                      //       postId: widget.snap['postId'].toString(),
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    coincard(bgcolor: Colors.white, amount: 5),
-                    coincard(bgcolor: Colors.white, amount: 10),
-                    coincard(bgcolor: Colors.white, amount: 50),
+                    Row(
+                      children: [
+                        coincard(
+                            bgcolor: Colors.white.withOpacity(0.9), amount: 5),
+                        coincard(
+                            bgcolor: Colors.white.withOpacity(0.9), amount: 10),
+                        coincard(
+                            bgcolor: Colors.white.withOpacity(0.9), amount: 50),
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: GlassBox(
-                        color: Colors.white,
+                        color: Colors.white.withOpacity(0.9),
                         isback: false,
                         child: IconButton(
-                          onPressed: () {
-                            deletePost(
-                              widget.snap['postId'].toString(),
+                          onPressed: () async {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: MediaQuery.of(context).viewInsets,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 350,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(0),
+                                        bottomRight: Radius.circular(0),
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4, 4, 4, 4),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(20, 8, 20, 0),
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Divider(
+                                                      thickness: 3,
+                                                      indent: 150,
+                                                      endIndent: 150,
+                                                      color: Color(0xFFDBE2E7),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(16, 16,
+                                                                  16, 4),
+                                                      child: Container(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              SizedBox(
+                                                                height: 16,
+                                                              ),
+                                                              Text(
+                                                                "Hey there,\nHow many leaves you want to gift?",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          166,
+                                                                          172,
+                                                                          179),
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 16.0,
+                                                              ),
+                                                              CustomTextField(
+                                                                hint: "Amount",
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .people),
+                                                                obsecure: false,
+                                                                autofocus:
+                                                                    false,
+                                                                textController:
+                                                                    amounts,
+                                                              ),
+                                                              SizedBox(
+                                                                height: 16,
+                                                              ),
+                                                              GestureDetector(
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30),
+                                                                    child: Container(
+                                                                        color: Utils.buttonColor.withOpacity(0.6),
+                                                                        width: 100,
+                                                                        height: 60,
+                                                                        padding: EdgeInsets.all(2),
+                                                                        child: BackdropFilter(
+                                                                          filter: ImageFilter.blur(
+                                                                              sigmaX: 10,
+                                                                              sigmaY: 10),
+                                                                          child: Container(
+                                                                              alignment: Alignment.bottomCenter,
+                                                                              child: Container(
+                                                                                child: Center(
+                                                                                  child: Text(
+                                                                                    "Confirm",
+                                                                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                                                                  ),
+                                                                                ),
+                                                                              )),
+                                                                        )),
+                                                                  ),
+                                                                  onTap: () {
+                                                                    if (user.coins >
+                                                                        int.parse(amounts
+                                                                            .text
+                                                                            .trim())) {
+                                                                      postpayement(
+                                                                          user
+                                                                              .uid,
+                                                                          user
+                                                                              .username,
+                                                                          user
+                                                                              .photoUrl,
+                                                                          int.parse(amounts
+                                                                              .text
+                                                                              .trim()));
+
+                                                                      Get.back();
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                              SnackBar(content: Text("Yeahhh... You gifted ${amounts.text} leaves :)")));
+                                                                    } else {
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                              SnackBar(
+                                                                        content:
+                                                                            Text("You Don't have enough leaves to gift :("),
+                                                                      ));
+                                                                    }
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             );
                           },
                           icon: const Icon(FontAwesomeIcons.add),
@@ -253,78 +507,6 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ],
                 ),
-                // Container(
-                //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                //   child: Column(
-                //     mainAxisSize: MainAxisSize.min,
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: <Widget>[
-                //       DefaultTextStyle(
-                //           style: Theme.of(context)
-                //               .textTheme
-                //               .subtitle2
-                //               .copyWith(fontWeight: FontWeight.w800),
-                //           child: Text(
-                //             '${widget.snap['likes'].length} likes',
-                //             style: Theme.of(context).textTheme.bodyText2,
-                //           )),
-                //       Container(
-                //         width: double.infinity,
-                //         padding: const EdgeInsets.only(
-                //           top: 8,
-                //         ),
-                //         child: RichText(
-                //           text: TextSpan(
-                //             style: const TextStyle(color: AppTheme.darkText),
-                //             children: [
-                //               TextSpan(
-                //                 text: widget.snap['username'].toString(),
-                //                 style: const TextStyle(
-                //                   fontWeight: FontWeight.bold,
-                //                 ),
-                //               ),
-                //               TextSpan(
-                //                 text: ' ${widget.snap['description']}',
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //       InkWell(
-                //         child: Container(
-                //           child: Text(
-                //             'View all $commentLen comments',
-                //             style: const TextStyle(
-                //               fontSize: 16,
-                //               color: AppTheme.darkText,
-                //             ),
-                //           ),
-                //           padding: const EdgeInsets.symmetric(vertical: 4),
-                //         ),
-                //         onTap: (() => Get.to(CommentsScreen(
-                //               postId: widget.snap['postId'].toString(),
-                //             ))),
-                //         // onTap: () => Navigator.of(context).push(
-                //         //   MaterialPageRoute(
-                //         //     builder: (context) => CommentsScreen(
-                //         //       postId: widget.snap['postId'].toString(),
-                //         //     ),
-                //         //   ),
-                //         // ),
-                //       ),
-                //       Container(
-                //         child: Text(
-                //           DateFormat.yMMMd()
-                //               .format(widget.snap['datePublished'].toDate()),
-                //           style: const TextStyle(
-                //             color: AppTheme.darkText,
-                //           ),
-                //         ),
-                //         padding: const EdgeInsets.symmetric(vertical: 4),
-                //       ),
-                //     ],
-                //   ),
-                // )
               ],
             ),
           ),
@@ -333,9 +515,9 @@ class _PostCardState extends State<PostCard> {
             opacity: isLikeAnimating ? 1 : 0,
             child: LikeAnimation(
               isAnimating: isLikeAnimating,
-              child: const Icon(
+              child: Icon(
                 Icons.favorite,
-                color: Colors.white,
+                color: Colors.white.withOpacity(0.9),
                 size: 100,
               ),
               duration: const Duration(
@@ -367,10 +549,10 @@ class _PostCardState extends State<PostCard> {
         child: TextButton.icon(
           style: ButtonStyle(
               padding: MaterialStateProperty.all(
-            EdgeInsets.only(left: 6.0, right: 6),
+            EdgeInsets.only(left: 8.0, right: 8),
           )),
           label: Text(
-            "$amount ",
+            " $amount ",
             style: TextStyle(
                 fontSize: 18, color: Color.fromARGB(255, 85, 92, 100)),
           ),
@@ -503,13 +685,21 @@ class _PostCardState extends State<PostCard> {
                                                           user.photoUrl,
                                                           amount);
                                                       Get.back();
-                                                      SnackBar(
-                                                          content: Text(
-                                                              "You have Successfully Gifted  :)"));
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              SnackBar(
+                                                        content: Text(
+                                                            "You have Successfully Gifted $amount :)"),
+                                                      ));
                                                     } else {
-                                                      SnackBar(
-                                                          content: Text(
-                                                              "You Don't have enough leaves to gift :("));
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              SnackBar(
+                                                        content: Text(
+                                                            "You Don't have enough leaves to gift :("),
+                                                      ));
                                                     }
                                                   })
                                             ],

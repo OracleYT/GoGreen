@@ -3,6 +3,7 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gogreen/home/add_post_screen.dart';
 import 'package:gogreen/home/feed_screen.dart';
+import 'package:gogreen/home/wallletscreen.dart';
 import 'package:gogreen/home/profile_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -92,21 +93,8 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                         padding:
                             const EdgeInsets.only(left: 36, top: 0, bottom: 24),
                         children: <Widget>[
-                          // CircleAvatar(
-                          //   radius: 24,
-                          //   backgroundImage: CachedNetworkImageProvider(
-                          //     profile,
-                          //   ),
-                          // ),
-                          // Padding(
-                          // padding: const EdgeInsets.only(left: 8.0),
-                          // child:
-                          // CircleAvatar(
-
                           GestureDetector(
-                            onTap: () {
-                              // mainDrawerViewModel.navigateToProfilePage();
-                            },
+                            onTap: () {},
                             child: const Align(
                               alignment: Alignment.centerLeft,
                               child: CircleAvatar(
@@ -130,7 +118,6 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                               textAlign: TextAlign.left,
                             ),
                           ),
-
                           Container(
                             height: 58,
                             width: 188,
@@ -199,7 +186,9 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                       },
                       children: <Widget>[
                         FeedScreen(),
-                        AddPostScreen(),
+                        WalletScreen(
+                          uid: FirebaseAuth.instance.currentUser.uid,
+                        ),
                         // MyHomePage(
                         //   uid: FirebaseAuth.instance.currentUser.uid,
                         // ),
