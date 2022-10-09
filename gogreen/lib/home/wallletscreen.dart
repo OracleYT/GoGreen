@@ -281,23 +281,20 @@ class _WalletScreenState extends State<WalletScreen> {
                                                                         ),
                                                                         onTap:
                                                                             () {
-                                                                          if (navigationController.coins.value >
-                                                                              int.parse(amounts.text.trim())) {
-                                                                            addmoney(user.uid,
-                                                                                int.parse(amounts.text.trim()));
-                                                                            Get.back();
-                                                                            getData();
-                                                                            setState(() {
-                                                                              navigationController.coins.value;
-                                                                            });
-                                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                              content: Text("You have Successfully get those leaves  :)"),
-                                                                            ));
-                                                                          } else {
-                                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                              content: Text("Please try again :("),
-                                                                            ));
-                                                                          }
+                                                                          addmoney(
+                                                                              user.uid,
+                                                                              int.parse(amounts.text.trim()));
+                                                                          Get.back();
+                                                                          getData();
+                                                                          setState(
+                                                                              () {
+                                                                            navigationController.coins.value;
+                                                                          });
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(SnackBar(
+                                                                            content:
+                                                                                Text("You have Successfully get those leaves  :)"),
+                                                                          ));
                                                                         })
                                                                   ],
                                                                 ),
