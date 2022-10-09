@@ -6,10 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:instagram_clone_flutter/providers/user_provider.dart';
-// import 'package:instagram_clone_flutter/resources/firestore_methods.dart';
-// import 'package:instagram_clone_flutter/utils/colors.dart';
-// import 'package:instagram_clone_flutter/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../constant.dart';
@@ -77,7 +73,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
     setState(() {
       isLoading = true;
     });
-    // start the loading
     try {
       // upload to storage and db
       String res = await FireStoreMethods().uploadPost(
