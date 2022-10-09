@@ -151,10 +151,10 @@ class _PostCardState extends State<PostCard> {
                           child: Row(
                             children: [
                               CircleAvatar(
+                                backgroundColor: Colors.transparent,
                                 radius: 16,
-                                backgroundImage: NetworkImage(
-                                  widget.snap['profImage'].toString(),
-                                ),
+                                backgroundImage:
+                                    AssetImage("images/gogreenlogo.png"),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -299,13 +299,6 @@ class _PostCardState extends State<PostCard> {
                       onTap: (() => Get.to(CommentsScreen(
                             postId: widget.snap['postId'].toString(),
                           ))),
-                      // onTap: () => Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => CommentsScreen(
-                      //       postId: widget.snap['postId'].toString(),
-                      //     ),
-                      //   ),
-                      // ),
                     ),
                   ],
                 ),

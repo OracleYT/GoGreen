@@ -100,7 +100,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                               child: CircleAvatar(
                                 radius: 54,
                                 backgroundImage: AssetImage(
-                                  "images/boy1.png",
+                                  "images/gogreenlogo.png",
                                 ),
                               ),
                             ),
@@ -108,7 +108,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                           const Padding(
                             padding: EdgeInsets.only(top: 36.0, bottom: 16),
                             child: Text(
-                              "Amogh Vaishnav",
+                              "Welcome",
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 24,
@@ -120,13 +120,12 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                           ),
                           Container(
                             height: 58,
-                            width: 188,
+                            width: 160,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: const Color(0xff132137),
                             ),
                             child: InkWell(
-                              // key: const ValueKey('Sign Up button'),
                               onTap: () {
                                 navigationController.advancedDrawerController
                                     .hideDrawer();
@@ -134,7 +133,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 16.0, right: 16.0),
+                                    left: 20.0, right: 20.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
@@ -221,12 +220,12 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       tabs: const [
                         GButton(
-                          icon: FontAwesomeIcons.home,
+                          icon: FontAwesomeIcons.tree,
                           text: 'Home',
                         ),
                         GButton(
-                          icon: FontAwesomeIcons.earthAsia,
-                          text: 'Explore',
+                          icon: FontAwesomeIcons.wallet,
+                          text: 'Wallet',
                         ),
                         GButton(
                           icon: FontAwesomeIcons.userTie,
